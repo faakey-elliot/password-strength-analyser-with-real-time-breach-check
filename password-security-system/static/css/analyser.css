@@ -1,0 +1,133 @@
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+color:white;
+text-align:center;
+min-height:100vh;
+background:linear-gradient(135deg,#58538c,#191727);
+}
+
+.container{
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(15px);
+border-radius:15px;
+padding:30px;
+width:350px;
+margin:80px auto;
+box-shadow:0 8px 32px rgba(0,0,0,0.2);
+border:1px solid rgba(255,255,255,0.2);
+}
+
+input,button{
+padding:10px;
+margin:10px;
+border-radius:8px;
+border:none;
+font-size:16px;
+}
+
+button{
+cursor:pointer;
+background:#00e6e6;
+font-weight:bold;
+}
+
+button:hover{
+background:#00baba;
+}
+
+.gauge{
+width:320px;
+margin:40px auto;
+}
+
+.gauge-body{
+width:100%;
+padding-bottom:50%;
+background:#1b1111;
+position:relative;
+border-top-left-radius:300px;
+border-top-right-radius:300px;
+overflow:hidden;
+box-shadow:0 0 25px rgba(0,0,0,0.6);
+}
+
+.gauge-fill{
+position:absolute;
+top:100%;
+width:100%;
+height:100%;
+background:conic-gradient(red,orange,yellow,lightgreen,green);
+transform-origin:center top;
+transition:transform 1s ease;
+}
+
+.needle{
+width:4px;
+height:120px;
+background:rgb(39,31,195);
+position:absolute;
+bottom:0;
+left:50%;
+transform-origin:bottom center;
+transform:rotate(-90deg);
+transition:transform 1s;
+z-index:10;
+}
+
+.gauge-center{
+width:70%;
+height:140%;
+background:#111;
+border-radius:50%;
+position:absolute;
+top:22%;
+left:50%;
+transform:translateX(-50%);
+display:flex;
+align-items:flex-start;
+justify-content:center;
+padding-top:25px;
+font-size:30px;
+font-weight:bold;
+}
+
+#crackTime,#entropyValue{
+font-size:18px;
+margin-top:10px;
+color:#00e6e6;
+}
+
+#strengthText{
+font-size:20px;
+margin-top:20px;
+}
+
+#attackBox{
+width:320px;
+margin:20px auto;
+padding:15px;
+background:black;
+color:#00ff00;
+font-family:monospace;
+border-radius:8px;
+min-height:80px;
+box-shadow:0 0 10px #00ff00;
+}
+
+.navbar{
+background:#111;
+padding:15px;
+}
+
+.navbar a{
+color:white;
+margin:15px;
+text-decoration:none;
+font-size:18px;
+font-weight:bold;
+}
+
+.navbar a:hover{
+color:#00e6e6;
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Password Generator</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/generator.css') }}">
+
+</head>
+
+<body>
+
+<div class="bg-glow glow1"></div>
+<div class="bg-glow glow2"></div>
+
+<div class="container">
+
+<h1>Password Generator</h1>
+
+<input type="text" id="generatedPassword" placeholder="Generated password will appear here" readonly>
+
+<br>
+
+<button onclick="generatePassword()">Generate Password</button>
+
+<button onclick="copyPassword()">Copy Password</button>
+
+<br><br>
+
+<a href="/dashboard">
+<button>⬅ Back to Dashboard</button>
+</a>
+
+</div>
+
+<script>
+
+function generatePassword(){
+
+let chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
+
+let password = "";
+
+for(let i=0;i<12;i++){
+password += chars.charAt(Math.floor(Math.random()*chars.length));
+}
+
+document.getElementById("generatedPassword").value = password;
+
+}
+
+function copyPassword(){
+
+let passwordField = document.getElementById("generatedPassword");
+
+passwordField.select();
+passwordField.setSelectionRange(0,99999);
+
+navigator.clipboard.writeText(passwordField.value);
+
+alert("Password Copied!");
+
+}
+
+</script>
+
+</body>
+</html>

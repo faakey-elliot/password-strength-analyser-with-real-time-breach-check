@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Password Security Toolkit</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+
+</head>
+
+<body>
+
+<div class="cyber-header">
+PASSWORD STRENGTH ANALYSER
+</div>
+
+<div class="subtitle">
+</div>
+
+<div class="header">
+🔐 Password Security Toolkit
+</div>
+
+<div class="container">
+
+<div class="card">
+<h2>🔎 Analyser</h2>
+<p>Check password strength using entropy and crack time estimation.</p>
+<a href="/analyser">Open</a>
+</div>
+
+<div class="card">
+<h2>⚡ Generator</h2>
+<p>Generate secure and random passwords instantly.</p>
+<a href="/generator">Open</a>
+</div>
+
+<div class="card">
+<h2>🛡️ Breach Check</h2>
+<p>Check if your password has appeared in data breaches.</p>
+<a href="/breach">Open</a>
+</div>
+
+<div class="card">
+<h2>💡 Security Tips</h2>
+<p>Learn best practices to create strong passwords.</p>
+<a href="/tips">Open</a>
+</div>
+
+<div class="card">
+<h2>📊 Dashboard</h2>
+<p>View project features and navigate easily.</p>
+<a href="/dashboard">Open</a>
+</div>
+
+</div>
+
+<div class="footer">
+Password Strength Analyser Project | Cybersecurity Mini Project
+</div>
+
+<script>
+document.querySelectorAll('.card, .box').forEach(el => {
+    el.addEventListener('click', function(e){
+
+        let circle = document.createElement("span");
+        circle.classList.add("ripple");
+
+        let rect = el.getBoundingClientRect();
+
+        let size = Math.max(rect.width, rect.height);
+        circle.style.width = size + "px";
+        circle.style.height = size + "px";
+
+        circle.style.left = (e.clientX - rect.left - size/2) + "px";
+        circle.style.top = (e.clientY - rect.top - size/2) + "px";
+
+        el.appendChild(circle);
+
+        setTimeout(() => {
+            circle.remove();
+        }, 600);
+
+    });
+});
+</script>
+
+</body>
+</html>

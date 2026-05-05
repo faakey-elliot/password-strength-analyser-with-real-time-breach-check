@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Security Tips</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tips.css') }}">
+
+</head>
+
+<body>
+
+<h1 style="margin-top:30px;">🔐 Password Security Tips</h1>
+
+<div style="width:70%;margin:auto;text-align:left;font-size:17px;line-height:1.8;">
+
+<p>✔ Use passwords with at least <b>8 characters</b>.</p>
+<p>✔ Combine <b>uppercase, lowercase, numbers, and special symbols</b>.</p>
+<p>✔ Avoid using <b>personal information</b> like your name or birthdate.</p>
+<p>✔ Do not reuse the same password for multiple accounts.</p>
+<p>✔ Use a <b>password manager</b> to securely store passwords.</p>
+<p>✔ Enable <b>Two-Factor Authentication (2FA)</b> wherever possible.</p>
+<p>✔ Change your passwords regularly to maintain security.</p>
+
+</div>
+
+<h1>Features available in our Password Security System</h1>
+
+<div class="container">
+
+<div class="card">
+<h3>🔐 Password Strength Analyser</h3>
+<p>This feature checks the strength of a password using length and complexity rules and displays the result using a visual meter.</p>
+</div>
+
+<div class="card">
+<h3>📊 Entropy Calculation</h3>
+<p>The system calculates password entropy to determine how unpredictable the password is.</p>
+</div>
+
+<div class="card">
+<h3>🕒 Crack Time Estimation</h3>
+<p>The analyser estimates how long it might take for a hacker to crack the password.</p>
+</div>
+
+<div class="card">
+<h3>⚔️ Attack Simulation</h3>
+<p>A simulated attack shows how hackers try multiple guesses to break weak passwords.</p>
+</div>
+
+<div class="card">
+<h3>📋 Password Requirement Checklist</h3>
+<p>The system shows which security rules are satisfied such as uppercase letters, numbers, and symbols.</p>
+</div>
+
+<div class="card">
+<h3>🔎 Breach Check</h3>
+<p>This feature checks whether a password has been exposed in known data breaches.</p>
+</div>
+
+<div class="card">
+<h3>🎲 Password Generator</h3>
+<p>Users can generate strong random passwords containing letters, numbers, and symbols.</p>
+</div>
+
+<div class="card">
+<h3>👁️ Show / Hide Password</h3>
+<p>The interface allows users to toggle password visibility while typing.</p>
+</div>
+
+</div>
+
+<br>
+
+<button class="backbtn" onclick="location.href='{{ url_for('home') }}'">⬅ Back to Home</button>
+
+</body>
+</html>

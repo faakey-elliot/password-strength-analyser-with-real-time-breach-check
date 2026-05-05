@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Password Analyser</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/analyser.css') }}">
+
+</head>
+
+<body>
+
+<h1>Password Strength Analyser</h1>
+
+<form method="POST">
+<div style="display:flex;justify-content:center;align-items:center;">
+<input type="password" name="password" id="password" placeholder="Enter password" value="{{ password }}">
+
+<button type="button" onclick="togglePassword()" style="margin-left:5px;">👁</button>
+</div>
+<br>
+
+<button type="submit">Analyse</button>
+<button type="button" onclick="copyPassword()">Copy Password</button>
+
+</form>
+
+<div class="gauge">
+<div class="gauge-body">
+
+<div class="gauge-fill" id="gaugeFill"></div>
+<div class="needle" id="needle"></div>
+
+<div class="gauge-center">
+<span id="percent">0%</span>
+</div>
+
+</div>
+</div>
+
+<p id="strengthText">Enter a password</p>
+<p id="crackTime">Estimated Crack Time: -</p>
+<p id="entropyValue">Entropy: - bits</p>
+
+<h3>Attack Simulation</h3>
+
+<div id="attackBox">Waiting for password analysis...</div>
+
+<div id="checklist" style="margin-top:20px;text-align:left;width:300px;margin:auto;font-size:15px;">
+<p id="len">❌  Contains at least 8 characters</p>
+<p id="upper">❌ Contains uppercase letter</p>
+<p id="lower">❌ Contains lowercase letter</p>
+<p id="number">❌ Contains number</p>
+<p id="symbol">❌ Contains special symbol</p>
+</div>
+
+<div class="navbar">
+<a href="/">Home</a>
+<a href="/dashboard">Dashboard</a>
+<a href="/breach">Breach Check</a>
+<a href="/generator">Generator</a>
+<a href="/tips">Security Tips</a>
+</div>
+
+<script>
+// (UNCHANGED JS - keep as it is)
+
+function copyPassword(){
+let password=document.getElementById("password");
+password.select();
+navigator.clipboard.writeText(password.value);
+alert("Password copied!");
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+
+let strengthPercent=Number({{ strength_percent|default(0) }});
+
+let gaugeFill=document.getElementById("gaugeFill");
+let needle=document.getElementById("needle");
+let percent=document.getElementById("percent");
+let strengthText=document.getElementById("strengthText");
+
+percent.innerText=Math.round(strengthPercent)+"%";
+
+gaugeFill.style.transform="rotate("+(strengthPercent*1.8)+"deg)";
+needle.style.transform="rotate("+(strengthPercent*1.8-90)+"deg)";
+
+let text="Weak Password";
+
+if(strengthPercent>=40){text="Medium Password";}
+if(strengthPercent>=70){text="Strong Password";}
+if(strengthPercent>=90){text="Very Strong Password";}
+
+strengthText.innerText=text;
+
+document.getElementById("crackTime").innerText="Estimated Crack Time: {{ crack_time }}";
+document.getElementById("entropyValue").innerText="Entropy: {{ entropy }} bits";
+
+let password="{{ password }}";
+simulateAttack(password);
+
+});
+
+function simulateAttack(password){
+
+let box=document.getElementById("attackBox");
+
+let attempts=0;
+
+let chars="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+let interval=setInterval(function(){
+
+let guess="";
+
+for(let i=0;i<password.length;i++){
+guess+=chars.charAt(Math.floor(Math.random()*chars.length));
+}
+
+box.innerText="Trying password: "+guess;
+
+attempts++;
+
+if(attempts>20){
+
+clearInterval(interval);
+
+let strength={{ strength_percent|default(0) }};
+
+if(strength<40){
+box.innerText="⚠ Attack Successful!\nPassword cracked easily.";
+}
+else if(strength<70){
+box.innerText="⚠ Partial success\nPassword may be cracked with time.";
+}
+else if(strength<90){
+box.innerText="🔒 Attack Failed\nPassword is strong.";
+}
+else{
+box.innerText="🛡 Attack Impossible\nVery strong password!";
+}
+
+}
+
+},150);
+
+}
+
+const passwordInput = document.getElementById("password");
+
+function checkPassword(pwd){
+
+setCheck("len",pwd.length>=8,"Contains at least 8 characters");
+setCheck("upper",/[A-Z]/.test(pwd),"Contains uppercase letter");
+setCheck("lower",/[a-z]/.test(pwd),"Contains lowercase letter");
+setCheck("number",/[0-9]/.test(pwd),"Contains number");
+setCheck("symbol",/[!@#$%^&*(),.?":{}|<>]/.test(pwd),"Contains special symbol");
+
+}
+
+passwordInput.addEventListener("input",function(){
+checkPassword(passwordInput.value);
+});
+
+document.addEventListener("DOMContentLoaded",function(){
+checkPassword(passwordInput.value);
+});
+
+function setCheck(id,condition,text){
+
+let el=document.getElementById(id);
+
+if(condition){
+el.innerHTML="✔ "+text;
+el.style.color="lightgreen";
+}else{
+el.innerHTML="❌ Does not "+text;
+el.style.color="red";
+}
+
+}
+
+function togglePassword(){
+
+let passwordField = document.getElementById("password");
+
+if(passwordField.type === "password"){
+passwordField.type = "text";
+}
+else{
+passwordField.type = "password";
+}
+
+}
+</script>
+
+</body>
+</html>

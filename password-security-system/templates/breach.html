@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Password Breach Check</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/breach.css') }}">
+
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<h1>Password Breach Checker</h1>
+
+<form method="POST">
+
+<input type="password" name="password" placeholder="Enter password to check" required>
+
+<br>
+
+<button type="submit">Check Breach</button>
+
+</form>
+
+{% if result %}
+
+<div class="result">
+{{ result }}
+</div>
+
+{% endif %}
+
+<br><br>
+
+<a href="/dashboard">  
+<button type="button">Back to Dashboard</button>
+</a>
+
+<script>
+// (UNCHANGED JS)
+
+let canvas = document.getElementById("matrix");
+let ctx = canvas.getContext("2d");
+
+function resizeCanvas(){
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
+}
+
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*";
+letters = letters.split("");
+
+let fontSize = 14;
+let columns = canvas.width / fontSize;
+
+let drops = [];
+
+for(let x = 0; x < columns; x++){
+drops[x] = 1;
+}
+
+function draw(){
+
+ctx.fillStyle = "rgba(0,0,0,0.05)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle = "#0F0";
+ctx.font = fontSize + "px monospace";
+
+for(let i=0;i<drops.length;i++){
+
+let text = letters[Math.floor(Math.random()*letters.length)];
+
+ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+if(drops[i]*fontSize > canvas.height && Math.random()>0.975){
+drops[i]=0;
+}
+
+drops[i]++;
+
+}
+
+}
+
+setInterval(draw,33);
+
+</script>
+
+</body>
+</html>
